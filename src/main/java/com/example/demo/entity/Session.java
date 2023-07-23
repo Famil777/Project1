@@ -19,8 +19,8 @@ public class Session {
     @GeneratedValue(generator = "session_sequence" , strategy = GenerationType.SEQUENCE)
     private Long sessionId;
 
-    private LocalDateTime start;
-    private LocalDateTime end;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
     @OneToMany(mappedBy = "session")
     private List<Ticket> ticket;

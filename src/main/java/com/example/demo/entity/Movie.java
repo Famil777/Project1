@@ -3,10 +3,7 @@ package com.example.demo.entity;
 
 import com.example.demo.entity.enums.Genre;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,7 +12,8 @@ import java.util.List;
 @Table(name = "movie")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 public class Movie {
     @Id
@@ -24,6 +22,8 @@ public class Movie {
     private Long movieId;
     private String name;
     private LocalDate releaseDate;
+    private Integer duration;
+//    private double rating;
 
     @Enumerated(EnumType.STRING)
     private Genre genre;

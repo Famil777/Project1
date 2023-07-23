@@ -1,16 +1,14 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "ticket")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 public class Ticket {
     @Id
@@ -20,7 +18,7 @@ public class Ticket {
 
     @ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id" , referencedColumnName = "userId")
-    private User user;
+    private Users users;
 
     @ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY , optional = false)
     @JoinColumn(name = "session_id" , referencedColumnName = "sessionId")

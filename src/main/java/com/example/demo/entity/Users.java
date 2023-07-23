@@ -5,23 +5,20 @@ import java.util.List;
 
 import com.example.demo.entity.enums.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
 
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
-public class User {
+public class Users {
     @Id
-    @SequenceGenerator(name = "user_sequence" , sequenceName = "user_sequence" , allocationSize = 1)
-    @GeneratedValue(generator = "user_sequence" , strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "users_sequence" , sequenceName = "users_sequence" , allocationSize = 1)
+    @GeneratedValue(generator = "users_sequence" , strategy = GenerationType.SEQUENCE)
     private Long userId;
     private String name;
     private String surname;
@@ -31,7 +28,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
     
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "users")
     private List<Ticket> ticket;
 
 
