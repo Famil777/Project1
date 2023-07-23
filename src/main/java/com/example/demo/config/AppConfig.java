@@ -26,10 +26,17 @@ public class AppConfig {
 
             //movies
             Movie fnaf = Movie.builder()
-                              .name("Fnaf")
+                              .name("fnaf")
                               .duration(120)
                               .releaseDate(LocalDate.of(2023,10,4))
                               .genre(Genre.HORROR)
+                              .build();
+            
+            Movie interstellar = Movie.builder()
+                              .name("interstellar")
+                              .duration(169)
+                              .releaseDate(LocalDate.of(2025,01,24))
+                              .genre(Genre.SCIENCE_FICTION)
                               .build();
 
             Movie oppenheimer = Movie.builder()
@@ -87,11 +94,6 @@ public class AppConfig {
                                     .build();
 
 
-            //tickets
-            Ticket fnafTicketA1 = Ticket.builder().session(fnafSessionA1).seat(fnafSeatA1).build();
-            Ticket fnafTicketA11 = Ticket.builder().session(fnafSessionA11).seat(fnafSeatA11).build();
-            Ticket fnafTicketB15 = Ticket.builder().session(fnafSessionB15).seat(fnafSeatB15).build();
-            Ticket fnafTicketC30 = Ticket.builder().session(fnafSessionC30).seat(fnafSeatC30).build();
 
 
             //users
@@ -107,7 +109,6 @@ public class AppConfig {
                     .email("williamAfton@gmail.com")
                     .password("biteOf1983")
                     .role(Role.USER)
-                    .ticket(List.of(fnafTicketA1 , fnafTicketA11))
                     .build();
 
             Users henry = Users.builder().name("Henry")
@@ -115,7 +116,6 @@ public class AppConfig {
                     .email("henryEmily@gmail.com")
                     .password("letmesaveyounow")
                     .role(Role.USER)
-                    .ticket(List.of(fnafTicketB15))
                     .build();
 
             Users michael = Users.builder().name("Michael")
@@ -123,15 +123,21 @@ public class AppConfig {
                     .email("michaelAftony@gmail.com")
                     .password("lwillputyoubacktogether")
                     .role(Role.USER)
-                    .ticket(List.of(fnafTicketC30))
                     .build();
 
 
+            //tickets
+            Ticket fnafTicketA1 = Ticket.builder().session(fnafSessionA1).seat(fnafSeatA1).users(william).build();
+            Ticket fnafTicketA11 = Ticket.builder().session(fnafSessionA11).seat(fnafSeatA11).users(william).build();
+            Ticket fnafTicketB15 = Ticket.builder().session(fnafSessionB15).seat(fnafSeatB15).users(henry).build();
+            Ticket fnafTicketC30 = Ticket.builder().session(fnafSessionC30).seat(fnafSeatC30).users(michael).build();
 
 
-            movieRepository.saveAll(List.of(fnaf , oppenheimer , inception));
-            usersRepository.saveAll(List.of(tom , william , henry , michael));
-            ticketRepository.saveAll(List.of(fnafTicketA1 , fnafTicketA11 , fnafTicketB15 , fnafTicketC30));
+
+            movieRepository.saveAll(List.of(fnaf , oppenheimer , inception , interstellar));
+            ticketRepository.saveAll(List.of(fnafTicketA1 ,fnafTicketA11 , fnafTicketB15 , fnafTicketC30 ));
+            usersRepository.saveAll(List.of( william , henry , michael , tom));
+
         };
     }
 }

@@ -25,7 +25,7 @@ public class Session {
     @OneToMany(mappedBy = "session")
     private List<Ticket> ticket;
 
-    @ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY , optional = false)
+    @ManyToOne(fetch = FetchType.LAZY , optional = false)
     @JoinColumn(name = "movie_id" , referencedColumnName = "movieId")
     private Movie movie;
 

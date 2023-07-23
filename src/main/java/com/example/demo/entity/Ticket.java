@@ -16,7 +16,7 @@ public class Ticket {
     @GeneratedValue(generator = "ticket_sequence" , strategy = GenerationType.SEQUENCE)
     private Long ticketId;
 
-    @ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id" , referencedColumnName = "userId")
     private Users users;
 
