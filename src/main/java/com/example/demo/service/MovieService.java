@@ -59,5 +59,14 @@ public class MovieService {
     }
 
 
-    // create session
+    //deleteMovie
+    public void deleteMovie(Long movieId) throws MovieNotFound {
+
+        Movie movie = movieRepository.findByMovieId(movieId).orElseThrow(() -> new MovieNotFound("Movie doesnt exist") );
+        movieRepository.delete(movie);
+
+    }
+
+
+ 
 }

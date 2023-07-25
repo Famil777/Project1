@@ -64,7 +64,6 @@ public class AppConfig {
             Seat fnafSeatA1 = Seat.builder().seatNumber(1).hall(sectionA).build();
             Seat fnafSeatA11 = Seat.builder().seatNumber(11).hall(sectionA).build();
             Seat fnafSeatB15 = Seat.builder().seatNumber(15).hall(sectionB).build();
-            Seat fnafSeatC30 = Seat.builder().seatNumber(30).hall(sectionC).build();
             Seat inceptionSeatA15 = Seat.builder().seatNumber(15).hall(sectionA).build();
 
             //session
@@ -87,12 +86,7 @@ public class AppConfig {
                                     .hall(sectionB)
                                     .build();
 
-            Session fnafSessionC30 = Session.builder()
-                                    .startTime(LocalDateTime.of(2023,10,11,20,0,0))
-                                    .endTime(LocalDateTime.of(2023,10,11,20,0,0).plusMinutes(fnaf.getDuration()))
-                                    .movie(fnaf)
-                                    .hall(sectionC)
-                                    .build();
+
 
             Session inceptionSessionA15  = Session.builder()
                                           .startTime(LocalDateTime.of(2025,6,4,20,0,0))
@@ -137,12 +131,11 @@ public class AppConfig {
             Ticket fnafTicketA1 = Ticket.builder().session(fnafSessionA1).seat(fnafSeatA1).users(william).build();
             Ticket fnafTicketA11 = Ticket.builder().session(fnafSessionA11).seat(fnafSeatA11).users(william).build();
             Ticket fnafTicketB15 = Ticket.builder().session(fnafSessionB15).seat(fnafSeatB15).users(henry).build();
-            Ticket fnafTicketC30 = Ticket.builder().session(fnafSessionC30).seat(fnafSeatC30).users(michael).build();
             Ticket inceptionTicketA15 = Ticket.builder().session(inceptionSessionA15).users(null).seat(inceptionSeatA15).build();
 
 
             movieRepository.saveAll(List.of(fnaf , oppenheimer , inception , interstellar));
-            ticketRepository.saveAll(List.of(fnafTicketA1 ,fnafTicketA11 , fnafTicketB15 , fnafTicketC30 , inceptionTicketA15 ));
+            ticketRepository.saveAll(List.of(fnafTicketA1 ,fnafTicketA11 , fnafTicketB15  , inceptionTicketA15 ));
             usersRepository.saveAll(List.of( william , henry , michael , tom));
 
         };

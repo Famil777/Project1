@@ -7,7 +7,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "session")
+@Table(name = "session" ,
+     uniqueConstraints = @UniqueConstraint(name = "hall_startTime_constraint" , columnNames ={"startTime" , "hall_id"}))
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

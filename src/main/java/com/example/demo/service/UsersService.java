@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import java.util.Optional;
+
 
 import org.springframework.stereotype.Service;
 
@@ -33,6 +33,18 @@ public class UsersService {
         Users user = usersRepository.findByUserId(userId).orElseThrow(() -> new UserNotFoundException("Sign in first"));
 
         ticket.setUsers(user);
+    }
+
+    // delete ticket.Can l use this?.(RIP DRY)
+    @Transactional
+    public void deleteTicket(Long userId, Long ticketId) throws TicketNotFound, TicketAlreadyTakenException, UserNotFoundException {
+
+        Ticket ticket = ticketRepository.findById(ticketId).orElseThrow(() -> new TicketNotFound("Ticket doesnt exist"));
+     
+        
+        if(userId == null){throw new UserNotFoundException("Sign in first");} //usernotfound -- is it signed?
+        ticket.setUsers(null);
+
     }
     
 }

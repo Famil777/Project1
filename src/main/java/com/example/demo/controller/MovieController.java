@@ -6,6 +6,8 @@ import com.example.demo.entity.enums.Genre;
 import com.example.demo.exceptions.MovieNotFound;
 import com.example.demo.service.MovieService;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,8 +50,12 @@ public class MovieController {
 
                                 movieService.updateMovie(movieId , date , genre , name);
 
+    }
 
 
+    @DeleteMapping(path = "/delete/{movieId}")
+    public void deleteMovie(@PathVariable("movieId") Long movieId) throws MovieNotFound{
+        movieService.deleteMovie(movieId);
     }
 
 }
