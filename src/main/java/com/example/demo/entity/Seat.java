@@ -6,7 +6,7 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Table(name = "seat" , uniqueConstraints = @UniqueConstraint(name = "unique_seat_constraint" , columnNames = "seatNumber"))
+@Table(name = "seat")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

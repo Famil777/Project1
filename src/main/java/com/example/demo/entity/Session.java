@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-public class Session {
+public class Session { //add unique constraint to (start end hall )
     @Id
     @SequenceGenerator(name = "session_sequence" , sequenceName = "session_sequence" , allocationSize = 1)
     @GeneratedValue(generator = "session_sequence" , strategy = GenerationType.SEQUENCE)

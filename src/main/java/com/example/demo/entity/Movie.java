@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "movie")
+@Table(name = "movie" , uniqueConstraints = @UniqueConstraint(name = "unique_movie_constraint" , columnNames = "name"))
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
