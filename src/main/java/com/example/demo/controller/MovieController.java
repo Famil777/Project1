@@ -21,40 +21,57 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/home")
+@RequestMapping(path = "/movie")
 @RequiredArgsConstructor
 public class MovieController {
 
     private final MovieService movieService;
 
     @GetMapping
-    public List<MovieDto> getAllMovies(){
-        return  movieService.getAllMovies();
+    public List<MovieDto> getAllMovies() {
+        return movieService.getAllMovies();
     }
 
     @GetMapping(path = "/{name}")
-    public List<MovieDto> containsName(@PathVariable(name = "name") String name){
+    public List<MovieDto> containsName(@PathVariable(name = "name") String name) {
         return movieService.containsName(name);
     }
 
-    @PostMapping(path = "/addMovie")
-    public void addMovie(@RequestBody Movie movie){
+    @GetMapping("/genre={genre}")
+    public List<MovieDto> findByGenre(@PathVariable("genre") Genre genre){
+        return movieService.findByGenre(genre);
+    }
+
+    @GetMapping("/rating>{rating}")
+    public List<MovieDto> greaterThanRating(@PathVariable("rating") Double rating){
+        return movieService.greaterThanRating(rating);
+    }
+
+    @GetMapping("/genre={genre}/rating>{rating}")
+    public List<MovieDto> findByGenreAndRating(@PathVariable("genre") Genre genre,
+                                               @PathVariable("rating") Double rating){
+        return movieService.findByGenreAndRating(genre,rating);
+    }
+
+
+    @PostMapping(path = "/add-movie")
+    public void addMovie(@RequestBody Movie movie) {
         movieService.addMovie(movie);
     }
 
-    @PutMapping(path = "/{movieId}")
-    public void updateMovie(@PathVariable("movieId") Long movieId,
-                            @RequestParam(required = false) LocalDate date , 
-                            @RequestParam(required = false) Genre genre ,
-                            @RequestParam(required = false) String name) throws MovieNotFound{
+    @PutMapping(path = "/{movie-id}")
+    public void updateMovie(@PathVariable("movie-id") Long movieId,
+                            @RequestParam(required = false) LocalDate date,
+                            @RequestParam(required = false) Genre genre,
+                            @RequestParam(required = false) String name) throws MovieNotFound {
 
-                                movieService.updateMovie(movieId , date , genre , name);
+        movieService.updateMovie(movieId, date, genre, name);
 
     }
 
 
-    @DeleteMapping(path = "/delete/{movieId}")
-    public void deleteMovie(@PathVariable("movieId") Long movieId) throws MovieNotFound{
+    @DeleteMapping(path = "/{movie-id}")
+    public void deleteMovie(@PathVariable("movie-id") Long movieId) throws MovieNotFound {
         movieService.deleteMovie(movieId);
     }
 

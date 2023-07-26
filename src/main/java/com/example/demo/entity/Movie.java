@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "movie" , uniqueConstraints = @UniqueConstraint(name = "unique_movie_constraint" , columnNames = "name"))
+@Table(name = "movie", uniqueConstraints = @UniqueConstraint(name = "unique_movie_constraint", columnNames = "name"))
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -17,15 +17,13 @@ import java.util.List;
 @Builder
 public class Movie {
     @Id
-    @SequenceGenerator(name = "movie_sequence" , sequenceName = "movie_sequence" , allocationSize = 1)
-    @GeneratedValue(generator = "movie_sequence" , strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "movie_sequence", sequenceName = "movie_sequence", allocationSize = 1)
+    @GeneratedValue(generator = "movie_sequence", strategy = GenerationType.SEQUENCE)
     private Long movieId;
     private String name;
     private LocalDate releaseDate;
     private Integer duration;
-
-    
-//    private Double rating;
+    private Double rating;
 
     @Enumerated(EnumType.STRING)
     private Genre genre;

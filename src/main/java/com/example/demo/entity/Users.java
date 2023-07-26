@@ -17,8 +17,8 @@ import lombok.*;
 @Builder
 public class Users {
     @Id
-    @SequenceGenerator(name = "users_sequence" , sequenceName = "users_sequence" , allocationSize = 1)
-    @GeneratedValue(generator = "users_sequence" , strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "users_sequence", sequenceName = "users_sequence", allocationSize = 1)
+    @GeneratedValue(generator = "users_sequence", strategy = GenerationType.SEQUENCE)
     private Long userId;
     private String name;
     private String surname;
@@ -27,10 +27,7 @@ public class Users {
 
     @Enumerated(EnumType.STRING)
     private Role role;
-    
+
     @OneToMany(mappedBy = "users")
     private List<Ticket> ticket;
-
-
-
 }

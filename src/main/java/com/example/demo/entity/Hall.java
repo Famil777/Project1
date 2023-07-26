@@ -14,8 +14,8 @@ import java.util.List;
 @Builder
 public class Hall {
     @Id
-    @SequenceGenerator(name = "hall_sequence" , sequenceName = "hall_sequence" , allocationSize = 1)
-    @GeneratedValue(generator = "hall_sequence" , strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "hall_sequence", sequenceName = "hall_sequence", allocationSize = 1)
+    @GeneratedValue(generator = "hall_sequence", strategy = GenerationType.SEQUENCE)
     private Long hallId;
     private String name;
     private Integer capacity;
@@ -25,5 +25,4 @@ public class Hall {
 
     @OneToMany(mappedBy = "hall")
     private List<Seat> seat;
-
 }

@@ -20,9 +20,7 @@ public class MovieDto {
     private String name;
     private LocalDate releaseDate;
     private Integer duration;
-//    private double rating;
+    private Double rating;
     @Enumerated(EnumType.STRING)
     private Genre genre;
-
-
 }

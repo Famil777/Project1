@@ -14,8 +14,8 @@ import java.util.List;
 @Builder
 public class Seat {
     @Id
-    @SequenceGenerator(name = "seat_sequence" , sequenceName = "seat_sequence" , allocationSize = 1)
-    @GeneratedValue(generator = "seat_sequence" , strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "seat_sequence", sequenceName = "seat_sequence", allocationSize = 1)
+    @GeneratedValue(generator = "seat_sequence", strategy = GenerationType.SEQUENCE)
     private Long seatId;
     private Integer seatNumber;
 
@@ -23,7 +23,7 @@ public class Seat {
     private List<Ticket> ticket;
 
 
-    @ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY , optional = false)
-    @JoinColumn(name = "hall_id" , referencedColumnName = "hallId")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)//optional = false
+    @JoinColumn(name = "hall_id", referencedColumnName = "hallId")
     private Hall hall;
 }

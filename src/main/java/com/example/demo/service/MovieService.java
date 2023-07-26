@@ -29,11 +29,12 @@ public class MovieService {
     public List<MovieDto> getAllMovies() {
         return movieRepository.findAll().stream().map(movieMapper::movieToMovieDto).toList();
     }
+
     public List<MovieDto> containsName(String name) {
 
         Specification<Movie> specifications = Specification.where(MovieSpecification.containsName(name));
-
         return movieRepository.findAll(specifications).stream().map(movieMapper::movieToMovieDto).toList();
+
     }
 
     // Add Movie
@@ -45,14 +46,20 @@ public class MovieService {
     @Transactional
     public void updateMovie(Long movieId, LocalDate date, Genre genre, String name) throws MovieNotFound {
 
-        Movie movie = movieRepository.findByMovieId(movieId).orElseThrow(() -> new MovieNotFound("Movie doesnt exist") );
+        Movie movie = movieRepository.findByMovieId(movieId).orElseThrow(() -> new MovieNotFound("Movie doesnt exist"));
 
-        System.out.println("before " +movie.getName());
+        System.out.println("before " + movie.getName());
         System.out.println(name != null);
 
-        if(!movie.getName().equals(name) && name != null && name.length()>0){movie.setName(name);}
-        if(date != null){movie.setReleaseDate(date);}
-        if(genre != null){movie.setGenre(genre);}
+        if (!movie.getName().equals(name) && name != null && name.length() > 0) {
+            movie.setName(name);
+        }
+        if (date != null) {
+            movie.setReleaseDate(date);
+        }
+        if (genre != null) {
+            movie.setGenre(genre);
+        }
 
         System.out.println("after " + movie.getName());
 
@@ -62,11 +69,29 @@ public class MovieService {
     //deleteMovie
     public void deleteMovie(Long movieId) throws MovieNotFound {
 
-        Movie movie = movieRepository.findByMovieId(movieId).orElseThrow(() -> new MovieNotFound("Movie doesnt exist") );
+        Movie movie = movieRepository.findByMovieId(movieId).orElseThrow(() -> new MovieNotFound("Movie doesnt exist"));
         movieRepository.delete(movie);
 
     }
 
 
- 
+    public List<MovieDto> findByGenre(Genre genre) {
+
+        Specification<Movie> specifications = Specification.where(MovieSpecification.findByGenre(genre));
+        return movieRepository.findAll(specifications).stream().map(movieMapper::movieToMovieDto).toList();
+
+
+    }
+
+    public List<MovieDto> greaterThanRating(Double rating) {
+        Specification<Movie> specifications = Specification.where(MovieSpecification.greaterThanRating(rating));
+        return movieRepository.findAll(specifications).stream().map(movieMapper::movieToMovieDto).toList();
+    }
+
+    public List<MovieDto> findByGenreAndRating(Genre genre, Double rating) {
+        Specification<Movie> specifications = Specification.where(MovieSpecification.findByGenre(genre)
+                                                                  .and(MovieSpecification.greaterThanRating(rating)));
+
+        return movieRepository.findAll(specifications).stream().map(movieMapper::movieToMovieDto).toList();
+    }
 }
