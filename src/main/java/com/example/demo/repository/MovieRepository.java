@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+
 import com.example.demo.entity.Movie;
 
 import java.util.Optional;
@@ -15,5 +16,6 @@ public interface MovieRepository extends JpaRepository<Movie, Long>, JpaSpecific
 
     @Query("Select m from Movie m where m.movieId = :movieId")
     Optional<Movie> findByMovieId(@Param("movieId") Long movieId);
+
 
 }

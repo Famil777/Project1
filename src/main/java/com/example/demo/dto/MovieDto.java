@@ -9,7 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+
 
 
 @Getter
@@ -18,7 +18,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class MovieDto {
     private String name;
-    private LocalDate releaseDate;
     private Integer duration;
     private Double rating;
     @Enumerated(EnumType.STRING)

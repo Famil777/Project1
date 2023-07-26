@@ -16,8 +16,13 @@ public class Hall {
     @Id
     @SequenceGenerator(name = "hall_sequence", sequenceName = "hall_sequence", allocationSize = 1)
     @GeneratedValue(generator = "hall_sequence", strategy = GenerationType.SEQUENCE)
+    @Column(name = "hall_id")
     private Long hallId;
+
+    @Column(name = "hall_name" , nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private Integer capacity;
 
     @OneToMany(mappedBy = "hall")

@@ -20,10 +20,9 @@ public class TicketController {
     @PostMapping("/{hallId}/{movieId}")
     public void createTicket(@PathVariable("hallId") Long hallId,
                              @PathVariable("movieId") Long movieId,
-                             LocalDateTime startTime) throws MovieNotFound, HallNotFound {
+                             @RequestParam LocalDateTime startTime) throws MovieNotFound, HallNotFound {
 
         ticketService.createTicket(hallId, movieId, startTime);
-
     }
 
     @DeleteMapping(path = "/{session-id}")

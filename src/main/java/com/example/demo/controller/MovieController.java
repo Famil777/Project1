@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDate;
+
 import java.util.List;
 
 @RestController
@@ -54,18 +54,17 @@ public class MovieController {
     }
 
 
-    @PostMapping(path = "/add-movie")
+    @PostMapping
     public void addMovie(@RequestBody Movie movie) {
         movieService.addMovie(movie);
     }
 
     @PutMapping(path = "/{movie-id}")
     public void updateMovie(@PathVariable("movie-id") Long movieId,
-                            @RequestParam(required = false) LocalDate date,
                             @RequestParam(required = false) Genre genre,
                             @RequestParam(required = false) String name) throws MovieNotFound {
 
-        movieService.updateMovie(movieId, date, genre, name);
+        movieService.updateMovie(movieId, genre, name);
 
     }
 

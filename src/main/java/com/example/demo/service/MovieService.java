@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+
 import java.util.List;
 
 @Service
@@ -44,24 +44,16 @@ public class MovieService {
 
     // updateMovie
     @Transactional
-    public void updateMovie(Long movieId, LocalDate date, Genre genre, String name) throws MovieNotFound {
+    public void updateMovie(Long movieId, Genre genre, String name) throws MovieNotFound {
 
-        Movie movie = movieRepository.findByMovieId(movieId).orElseThrow(() -> new MovieNotFound("Movie doesnt exist"));
-
-        System.out.println("before " + movie.getName());
-        System.out.println(name != null);
+        Movie movie = movieRepository.findByMovieId(movieId).orElseThrow(() -> new MovieNotFound("Movie doesn't exist"));
 
         if (!movie.getName().equals(name) && name != null && name.length() > 0) {
             movie.setName(name);
         }
-        if (date != null) {
-            movie.setReleaseDate(date);
-        }
         if (genre != null) {
             movie.setGenre(genre);
         }
-
-        System.out.println("after " + movie.getName());
 
     }
 
@@ -69,7 +61,7 @@ public class MovieService {
     //deleteMovie
     public void deleteMovie(Long movieId) throws MovieNotFound {
 
-        Movie movie = movieRepository.findByMovieId(movieId).orElseThrow(() -> new MovieNotFound("Movie doesnt exist"));
+        Movie movie = movieRepository.findByMovieId(movieId).orElseThrow(() -> new MovieNotFound("Movie doesn't exist"));
         movieRepository.delete(movie);
 
     }
@@ -79,7 +71,6 @@ public class MovieService {
 
         Specification<Movie> specifications = Specification.where(MovieSpecification.findByGenre(genre));
         return movieRepository.findAll(specifications).stream().map(movieMapper::movieToMovieDto).toList();
-
 
     }
 
