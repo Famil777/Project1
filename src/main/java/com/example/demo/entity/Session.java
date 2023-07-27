@@ -27,14 +27,14 @@ public class Session {
     @Column(name = "end_time")
     private LocalDateTime endTime;
 
-    @OneToMany(mappedBy = "session")
+    @OneToMany(mappedBy = "session",cascade = CascadeType.ALL)
     private List<Ticket> ticket;
 
-    @ManyToOne(fetch = FetchType.LAZY , optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "movie_id_fk", referencedColumnName = "movie_id")
     private Movie movie;
 
-    @ManyToOne(cascade = CascadeType.ALL , fetch = FetchType.LAZY , optional = false) 
+    @ManyToOne(optional = false) //cascade = CascadeType.ALL ,
     @JoinColumn(name = "hall_id_fk", referencedColumnName = "hall_id")
     private Hall hall;
 }

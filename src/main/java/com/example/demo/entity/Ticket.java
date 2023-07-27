@@ -17,7 +17,7 @@ public class Ticket {
     @Column(name = "ticket_id")
     private Long ticketId;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne //(cascade and fetch)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private Users users;
 

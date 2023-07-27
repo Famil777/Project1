@@ -70,11 +70,11 @@ public class AppConfig {
             Hall sectionB = Hall.builder().name("Section_B").capacity(30).build();
             Hall sectionC = Hall.builder().name("Section_C").capacity(30).build();
 
-        //     hallRepository.saveAll(List.of(sectionB));
+             hallRepository.saveAll(List.of(sectionA,sectionB,sectionC));
 
 
 
-            
+            //sessions
             Session inceptionSession = Session.builder()
             .startTime(LocalDateTime.of(2023, 10, 4, 12, 0, 0))
             .endTime(LocalDateTime.of(2023, 12, 4, 12, 0, 0).plusMinutes(inception.getDuration()))
@@ -104,7 +104,16 @@ public class AppConfig {
             Seat seat_add = Seat.builder().seatNumber(a).hall(sectionC).build();
             Ticket ticket = Ticket.builder().seat(seat_add).session(inceptionSession).build();
             ticketRepository.save(ticket);
-                               });
+                      }
+                 );
+
+
+            IntStream.rangeClosed(1,sectionC.getCapacity()).forEach(a -> {
+                        Seat seat_add = Seat.builder().seatNumber(a).hall(sectionA).build();
+                        Ticket ticket = Ticket.builder().seat(seat_add).session(fnafSession).build();
+                        ticketRepository.save(ticket);
+                    }
+            );
 
         };
     }

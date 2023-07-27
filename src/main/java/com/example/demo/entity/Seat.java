@@ -26,7 +26,7 @@ public class Seat {
     private List<Ticket> ticket;
 
 
-    @ManyToOne(fetch = FetchType.LAZY , optional = false) //cascade = CascadeType.ALL,
+    @ManyToOne( optional = false) //cascade = CascadeType.ALL,
     @JoinColumn(name = "hall_id_fk", referencedColumnName = "hall_id")
     private Hall hall;
 }
