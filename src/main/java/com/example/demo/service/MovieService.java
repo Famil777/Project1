@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +32,6 @@ public class MovieService {
     }
 
     public List<MovieDto> containsName(String name) {
-
         Specification<Movie> specifications = Specification.where(MovieSpecification.containsName(name));
         return movieRepository.findAll(specifications).stream().map(movieMapper::movieToMovieDto).toList();
 
@@ -45,8 +45,7 @@ public class MovieService {
     // updateMovie
     @Transactional
     public void updateMovie(Long movieId, List<Genre> genres, String name) throws MovieNotFound {
-
-        Movie movie = movieRepository.findByMovieId(movieId).orElseThrow(() -> new MovieNotFound("Movie doesn't exist"));
+        Movie movie = movieRepository.findById(movieId).orElseThrow(() -> new MovieNotFound("Movie doesn't exist"));
 
         if (!movie.getName().equals(name) && name != null && name.length() > 0) {
             movie.setName(name);
@@ -60,18 +59,14 @@ public class MovieService {
 
     //deleteMovie
     public void deleteMovie(Long movieId) throws MovieNotFound {
-
-        Movie movie = movieRepository.findByMovieId(movieId).orElseThrow(() -> new MovieNotFound("Movie doesn't exist"));
+        Movie movie = movieRepository.findById(movieId).orElseThrow(() -> new MovieNotFound("Movie doesn't exist"));
         movieRepository.delete(movie);
-
     }
 
-
     public List<MovieDto> findByGenre(List<Genre> genres) {
-        List<Integer> list = genres.stream().map(Genre::ordinal).toList();
-        Specification<Movie> specifications = Specification.where(MovieSpecification.findByGenres(list));
+        Specification<Movie> specifications = Specification.where(MovieSpecification.findByGenres(genres));
+        List<Movie> all = movieRepository.findAll(specifications);
         return movieRepository.findAll(specifications).stream().map(movieMapper::movieToMovieDto).toList();
-
     }
 
     public List<MovieDto> greaterThanRating(Double rating) {
@@ -80,8 +75,7 @@ public class MovieService {
     }
 
     public List<MovieDto> findByGenreAndRating(List<Genre> genres, Double rating) {
-        List<Integer> list = genres.stream().map(Genre::ordinal).toList();
-        Specification<Movie> specifications = Specification.where(MovieSpecification.findByGenres(list)
+        Specification<Movie> specifications = Specification.where(MovieSpecification.findByGenres(genres)
                                                                   .and(MovieSpecification.greaterThanRating(rating)));
 
         return movieRepository.findAll(specifications).stream().map(movieMapper::movieToMovieDto).toList();

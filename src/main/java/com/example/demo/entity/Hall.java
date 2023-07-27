@@ -16,8 +16,8 @@ public class Hall {
     @Id
     @SequenceGenerator(name = "hall_sequence", sequenceName = "hall_sequence", allocationSize = 1)
     @GeneratedValue(generator = "hall_sequence", strategy = GenerationType.SEQUENCE)
-    @Column(name = "hall_id")
-    private Long hallId;
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "hall_name" , nullable = false)
     private String name;

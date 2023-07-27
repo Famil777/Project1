@@ -11,8 +11,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
-
-    @Query("Select t from Ticket t where t.ticketId = :ticketId")
-    Optional<Ticket> findByTicketId(@Param("ticketId") Long ticketId);
-
 }

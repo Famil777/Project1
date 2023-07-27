@@ -14,8 +14,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long>, JpaSpecificationExecutor<Movie> {
 
-    @Query("Select m from Movie m where m.movieId = :movieId")
-    Optional<Movie> findByMovieId(@Param("movieId") Long movieId);
-
-
 }

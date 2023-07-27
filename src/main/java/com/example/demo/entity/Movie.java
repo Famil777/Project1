@@ -2,9 +2,12 @@ package com.example.demo.entity;
 
 
 import com.example.demo.entity.enums.Genre;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -18,8 +21,8 @@ public class Movie {
     @Id
     @SequenceGenerator(name = "movie_sequence", sequenceName = "movie_sequence", allocationSize = 1)
     @GeneratedValue(generator = "movie_sequence", strategy = GenerationType.SEQUENCE)
-    @Column(name = "movie_id")
-    private Long movieId;
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "movie_name" , nullable = false)
     private String name;
@@ -30,9 +33,13 @@ public class Movie {
     @Column(nullable = false)
     private Double rating;
 
+    @ElementCollection(targetClass = Genre.class)
+    @JoinTable(name = "tb_genre", joinColumns = @JoinColumn(name = "movieId"))
+    @Column(name = "genreId", nullable = false)
     @Enumerated
-    private List<Genre> genres;
+    private List<Genre> genres = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "movie")
-//    private List<Session> session;
+    @OneToMany(mappedBy = "movie")
+    @JsonIgnore
+    private List<Session> session;
 }

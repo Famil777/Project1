@@ -35,8 +35,8 @@ public class TicketService {
     @Transactional
     public void createTicket(Long hallId, Long movieId, LocalDateTime startTime) throws MovieNotFound, HallNotFound {
 
-        Movie movie = movieRepository.findByMovieId(movieId).orElseThrow(() -> new MovieNotFound("Movie doesnt exist"));
-        Hall hall = hallRepository.findByHallId(hallId).orElseThrow(() -> new HallNotFound("Hall doesnt exist"));
+        Movie movie = movieRepository.findById(movieId).orElseThrow(() -> new MovieNotFound("Movie doesnt exist"));
+        Hall hall = hallRepository.findById(hallId).orElseThrow(() -> new HallNotFound("Hall doesnt exist"));
 
         // create and save session
         Session newSession = Session.builder()

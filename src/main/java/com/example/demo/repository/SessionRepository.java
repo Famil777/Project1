@@ -10,8 +10,4 @@ import java.util.List;
 
 @Repository
 public interface SessionRepository extends JpaRepository<Session, Long> {
-
-//    @Modifying
-    @Query("delete from Session s WHERE s.sessionId = :sessionId")
-    List<Session> deleteBySessionId(@Param("sessionId") Long sessionId);
 }

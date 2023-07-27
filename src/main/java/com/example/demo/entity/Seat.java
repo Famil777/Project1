@@ -16,8 +16,8 @@ public class Seat {
     @Id
     @SequenceGenerator(name = "seat_sequence", sequenceName = "seat_sequence", allocationSize = 1)
     @GeneratedValue(generator = "seat_sequence", strategy = GenerationType.SEQUENCE)
-    @Column(name = "seat_id")
-    private Long seatId;
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "seat_number" , nullable = false)
     private Integer seatNumber;
@@ -27,6 +27,6 @@ public class Seat {
 
 
     @ManyToOne( optional = false) //cascade = CascadeType.ALL,
-    @JoinColumn(name = "hall_id_fk", referencedColumnName = "hall_id")
+    @JoinColumn(name = "hall_id", referencedColumnName = "id")
     private Hall hall;
 }

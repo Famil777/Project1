@@ -44,7 +44,7 @@ public class UsersService {
 
     @Transactional
     public void updateUser(Long userId, String name, String surname, String email, String password) throws UserNotFound, EmailAlreadyTaken {
-        Users user = usersRepository.findByUserId(userId).orElseThrow(() -> new UserNotFound("user doesn't exist"));
+        Users user = usersRepository.findById(userId).orElseThrow(() -> new UserNotFound("user doesn't exist"));
 
         if (name != null && name.length() > 0 && name != user.getName()) {
             user.setName(name);
@@ -84,7 +84,7 @@ public class UsersService {
             throw new UserNotFound("Sign in first");
         }
 
-        Users user = usersRepository.findByUserId(userId).orElseThrow(() -> new UserNotFound("Sign in first"));
+        Users user = usersRepository.findById(userId).orElseThrow(() -> new UserNotFound("Sign in first"));
 
         ticket.setUsers(user);
     }
