@@ -30,9 +30,9 @@ public class Movie {
     @Column(nullable = false)
     private Double rating;
 
-    @Enumerated(EnumType.STRING)
-    private Genre genre;
+    @Enumerated
+    private List<Genre> genres;
 
-    @OneToMany(mappedBy = "movie")
-    private List<Session> session;
+//    @OneToMany(mappedBy = "movie")
+//    private List<Session> session;
 }

@@ -9,7 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
+import java.util.List;
 
 
 @Getter
@@ -20,6 +20,5 @@ public class MovieDto {
     private String name;
     private Integer duration;
     private Double rating;
-    @Enumerated(EnumType.STRING)
-    private Genre genre;
+    private List<String> genres;
 }

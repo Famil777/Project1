@@ -5,7 +5,6 @@ import com.example.demo.entity.enums.Genre;
 import com.example.demo.entity.enums.Role;
 import com.example.demo.repository.HallRepository;
 import com.example.demo.repository.MovieRepository;
-import com.example.demo.repository.SeatRepository;
 import com.example.demo.repository.SessionRepository;
 import com.example.demo.repository.TicketRepository;
 import com.example.demo.repository.UsersRepository;
@@ -24,41 +23,76 @@ public class AppConfig {
     public CommandLineRunner commandLineRunner(UsersRepository usersRepository,
                                                MovieRepository movieRepository,
                                                TicketRepository ticketRepository,
-                                               HallRepository hallRepository,
                                                SessionRepository sessionRepository,
-                                               SeatRepository seatRepository) {
+                                               HallRepository hallRepository) {
         return args -> {
+
+            //users
+            Users michael = Users.builder()
+                                 .name("Michael")
+                                 .surname("Afton")
+                                 .email("michaelAfton@gmail.com")
+                                 .password("BiteOf1983")
+                                 .role(Role.USER)
+                                 .build();
+
+            Users william = Users.builder()
+                    .name("William")
+                    .surname("Afton")
+                    .email("williamAfton@gmail.com")
+                    .password("purpleGuy")
+                    .role(Role.USER)
+                    .build();
+
+            Users henry = Users.builder()
+                    .name("Henry")
+                    .surname("Emily")
+                    .email("henryEmily@gmail.com")
+                    .password("mimic1")
+                    .role(Role.USER)
+                    .build();
+
+            Users jeremy = Users.builder()
+                    .name("Jeremy")
+                    .surname("Mu")
+                    .email("jeremyMu@gmail.com")
+                    .password("1234")
+                    .role(Role.USER)
+                    .build();
+
+            usersRepository.saveAll(List.of(michael,william,henry,jeremy));
 
             //movies
             Movie fnaf = Movie.builder()
                     .name("fnaf")
                     .duration(120)
                     .rating(5.5)
-                    .genre(Genre.HORROR)
+                    .genres(List.of(Genre.ACTION,Genre.HORROR))
                     .build();
 
             Movie interstellar = Movie.builder()
                     .name("interstellar")
                     .duration(169)
                     .rating(7.8)
-                    .genre(Genre.SCIENCE_FICTION)
+                    .genres(List.of(Genre.SCIENCE_FICTION,Genre.ACTION))
                     .build();
 
             Movie oppenheimer = Movie.builder()
                     .name("Oppenheimer")
                     .duration(180)
                     .rating(3.0)
-                    .genre(Genre.HISTORY)
+                    .genres(List.of(Genre.CRIME,Genre.HISTORY))
                     .build();
 
             Movie inception = Movie.builder()
                     .name("Inception")
                     .duration(148)
                     .rating(7.7)
-                    .genre(Genre.SCIENCE_FICTION)
+                    .genres(List.of(Genre.SCIENCE_FICTION))
                     .build();
 
-            
+
+
             movieRepository.saveAll(List.of(inception,fnaf,interstellar,oppenheimer));
 
             //Halls
@@ -82,12 +116,7 @@ public class AppConfig {
             .movie(fnaf)
             .build();
 
-            Session oppenheimerSession = Session.builder()
-            .startTime(LocalDateTime.of(2023, 1, 4, 12, 0, 0))
-            .endTime(LocalDateTime.of(2023, 1, 4, 12, 0, 0).plusMinutes(oppenheimer.getDuration()))
-            .hall(sectionA)
-            .movie(oppenheimer)
-            .build();
+            sessionRepository.saveAll(List.of(inceptionSession,fnafSession));
 
 
             //seat and tickets

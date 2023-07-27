@@ -38,8 +38,8 @@ public class MovieController {
     }
 
     @GetMapping("/genre={genre}")
-    public List<MovieDto> findByGenre(@PathVariable("genre") Genre genre){
-        return movieService.findByGenre(genre);
+    public List<MovieDto> findByGenre(@PathVariable("genre") List<Genre> genres){
+        return movieService.findByGenre(genres);
     }
 
     @GetMapping("/rating>{rating}")
@@ -48,9 +48,9 @@ public class MovieController {
     }
 
     @GetMapping("/genre={genre}/rating>{rating}")
-    public List<MovieDto> findByGenreAndRating(@PathVariable("genre") Genre genre,
+    public List<MovieDto> findByGenreAndRating(@PathVariable("genre") List<Genre> genres,
                                                @PathVariable("rating") Double rating){
-        return movieService.findByGenreAndRating(genre,rating);
+        return movieService.findByGenreAndRating(genres,rating);
     }
 
 
@@ -61,10 +61,10 @@ public class MovieController {
 
     @PutMapping(path = "/{movie-id}")
     public void updateMovie(@PathVariable("movie-id") Long movieId,
-                            @RequestParam(required = false) Genre genre,
+                            @RequestParam(required = false) List<Genre> genres,
                             @RequestParam(required = false) String name) throws MovieNotFound {
 
-        movieService.updateMovie(movieId, genre, name);
+        movieService.updateMovie(movieId, genres, name);
 
     }
 

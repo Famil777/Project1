@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.example.demo.entity.enums.Role;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 
 
@@ -29,6 +30,7 @@ public class Users {
     private String surname;
 
     @Column(nullable = false)
+    @Email(message = "invalid email address")
     private String email;
 
     @Column(nullable = false)
@@ -37,6 +39,4 @@ public class Users {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "users")
-    private List<Ticket> ticket;
 }

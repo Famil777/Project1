@@ -44,15 +44,15 @@ public class MovieService {
 
     // updateMovie
     @Transactional
-    public void updateMovie(Long movieId, Genre genre, String name) throws MovieNotFound {
+    public void updateMovie(Long movieId, List<Genre> genres, String name) throws MovieNotFound {
 
         Movie movie = movieRepository.findByMovieId(movieId).orElseThrow(() -> new MovieNotFound("Movie doesn't exist"));
 
         if (!movie.getName().equals(name) && name != null && name.length() > 0) {
             movie.setName(name);
         }
-        if (genre != null) {
-            movie.setGenre(genre);
+        if (genres != null) {
+            movie.setGenres(genres);
         }
 
     }
@@ -67,9 +67,9 @@ public class MovieService {
     }
 
 
-    public List<MovieDto> findByGenre(Genre genre) {
-
-        Specification<Movie> specifications = Specification.where(MovieSpecification.findByGenre(genre));
+    public List<MovieDto> findByGenre(List<Genre> genres) {
+        List<Integer> list = genres.stream().map(Genre::ordinal).toList();
+        Specification<Movie> specifications = Specification.where(MovieSpecification.findByGenres(list));
         return movieRepository.findAll(specifications).stream().map(movieMapper::movieToMovieDto).toList();
 
     }
@@ -79,8 +79,9 @@ public class MovieService {
         return movieRepository.findAll(specifications).stream().map(movieMapper::movieToMovieDto).toList();
     }
 
-    public List<MovieDto> findByGenreAndRating(Genre genre, Double rating) {
-        Specification<Movie> specifications = Specification.where(MovieSpecification.findByGenre(genre)
+    public List<MovieDto> findByGenreAndRating(List<Genre> genres, Double rating) {
+        List<Integer> list = genres.stream().map(Genre::ordinal).toList();
+        Specification<Movie> specifications = Specification.where(MovieSpecification.findByGenres(list)
                                                                   .and(MovieSpecification.greaterThanRating(rating)));
 
         return movieRepository.findAll(specifications).stream().map(movieMapper::movieToMovieDto).toList();
