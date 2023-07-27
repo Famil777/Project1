@@ -29,7 +29,6 @@ public class AppConfig {
                                                SeatRepository seatRepository) {
         return args -> {
 
-
             //movies
             Movie fnaf = Movie.builder()
                     .name("fnaf")
@@ -61,18 +60,12 @@ public class AppConfig {
 
             
             movieRepository.saveAll(List.of(inception,fnaf,interstellar,oppenheimer));
-                
-
-
 
             //Halls
             Hall sectionA = Hall.builder().name("Section_A").capacity(30).build();
             Hall sectionB = Hall.builder().name("Section_B").capacity(30).build();
             Hall sectionC = Hall.builder().name("Section_C").capacity(30).build();
-
-             hallRepository.saveAll(List.of(sectionA,sectionB,sectionC));
-
-
+            hallRepository.saveAll(List.of(sectionA,sectionB,sectionC));
 
             //sessions
             Session inceptionSession = Session.builder()
@@ -97,23 +90,16 @@ public class AppConfig {
             .build();
 
 
-            sessionRepository.saveAll(List.of(inceptionSession,fnafSession,oppenheimerSession));
-
-
+            //seat and tickets
             IntStream.rangeClosed(1,sectionC.getCapacity()).forEach(a -> {
             Seat seat_add = Seat.builder().seatNumber(a).hall(sectionC).build();
             Ticket ticket = Ticket.builder().seat(seat_add).session(inceptionSession).build();
-            ticketRepository.save(ticket);
-                      }
-                 );
-
+            ticketRepository.save(ticket);});//inception
 
             IntStream.rangeClosed(1,sectionC.getCapacity()).forEach(a -> {
                         Seat seat_add = Seat.builder().seatNumber(a).hall(sectionA).build();
                         Ticket ticket = Ticket.builder().seat(seat_add).session(fnafSession).build();
-                        ticketRepository.save(ticket);
-                    }
-            );
+                        ticketRepository.save(ticket);});//fnaf
 
         };
     }
