@@ -38,19 +38,19 @@ public class MovieController {
     }
 
     @GetMapping("/genre={genre}")
-    public List<MovieDto> findByGenre(@PathVariable("genre") List<Genre> genres){
+    public List<MovieDto> findByGenre(@PathVariable("genre") List<Genre> genres) {
         return movieService.findByGenre(genres);
     }
 
     @GetMapping("/rating>{rating}")
-    public List<MovieDto> greaterThanRating(@PathVariable("rating") Double rating){
+    public List<MovieDto> greaterThanRating(@PathVariable("rating") Double rating) {
         return movieService.greaterThanRating(rating);
     }
 
     @GetMapping("/genre={genre}/rating>{rating}")
     public List<MovieDto> findByGenreAndRating(@PathVariable("genre") List<Genre> genres,
-                                               @PathVariable("rating") Double rating){
-        return movieService.findByGenreAndRating(genres,rating);
+                                               @PathVariable("rating") Double rating) {
+        return movieService.findByGenreAndRating(genres, rating);
     }
 
 

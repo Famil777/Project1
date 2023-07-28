@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,18 +17,20 @@ public class Hall {
     @Id
     @SequenceGenerator(name = "hall_sequence", sequenceName = "hall_sequence", allocationSize = 1)
     @GeneratedValue(generator = "hall_sequence", strategy = GenerationType.SEQUENCE)
-    @Column(name = "hall_id")
-    private Long hallId;
+    @Column(name = "id")
+    private Long id;
 
-    @Column(name = "hall_name" , nullable = false)
+    @Column(name = "hall_name", nullable = false)
     private String name;
 
     @Column(nullable = false)
     private Integer capacity;
 
     @OneToMany(mappedBy = "hall")
+    @JsonIgnore
     private List<Session> session;
 
     @OneToMany(mappedBy = "hall")
+    @JsonIgnore
     private List<Seat> seat;
 }

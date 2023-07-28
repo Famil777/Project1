@@ -91,9 +91,25 @@ public class AppConfig {
                     .genres(List.of(Genre.SCIENCE_FICTION))
                     .build();
 
+            Movie shutterIsland = Movie.builder()
+                    .name("shutter island")
+                    .duration(138)
+                    .rating(8.2)
+                    .genres(List.of(Genre.HORROR, Genre.CRIME))
+                    .build();
+
+            Movie wanted = Movie.builder()
+                    .name("wanted")
+                    .duration(110)
+                    .rating(6.7)
+                    .genres(List.of(Genre.ACTION, Genre.DRAMA))
+                    .build();
 
 
-            movieRepository.saveAll(List.of(inception,fnaf,interstellar,oppenheimer));
+
+
+
+            movieRepository.saveAll(List.of(inception,fnaf,interstellar,oppenheimer,shutterIsland,wanted));
 
             //Halls
             Hall sectionA = Hall.builder().name("Section_A").capacity(30).build();
@@ -104,7 +120,7 @@ public class AppConfig {
             //sessions
             Session inceptionSession = Session.builder()
             .startTime(LocalDateTime.of(2023, 10, 4, 12, 0, 0))
-            .endTime(LocalDateTime.of(2023, 12, 4, 12, 0, 0).plusMinutes(inception.getDuration()))
+            .endTime(LocalDateTime.of(2023, 10, 4, 12, 0, 0).plusMinutes(inception.getDuration()))
             .hall(sectionC)
             .movie(inception)
             .build();
@@ -116,19 +132,31 @@ public class AppConfig {
             .movie(fnaf)
             .build();
 
-            sessionRepository.saveAll(List.of(inceptionSession,fnafSession));
+            Session oppenheimerSession = Session.builder()
+                    .startTime(LocalDateTime.of(2024, 12, 1, 15, 0, 0))
+                    .endTime(LocalDateTime.of(2024, 12, 1, 15, 0, 0).plusMinutes(fnaf.getDuration()))
+                    .hall(sectionC)
+                    .movie(oppenheimer)
+                    .build();
+
+            sessionRepository.saveAll(List.of(inceptionSession,fnafSession,oppenheimerSession));
 
 
             //seat and tickets
             IntStream.rangeClosed(1,sectionC.getCapacity()).forEach(a -> {
             Seat seat_add = Seat.builder().seatNumber(a).hall(sectionC).build();
             Ticket ticket = Ticket.builder().seat(seat_add).session(inceptionSession).build();
-            ticketRepository.save(ticket);});//inception
+            ticketRepository.save(ticket);});
+
+            IntStream.rangeClosed(1,sectionA.getCapacity()).forEach(a -> {
+            Seat seat_add = Seat.builder().seatNumber(a).hall(sectionA).build();
+            Ticket ticket = Ticket.builder().seat(seat_add).session(fnafSession).build();
+            ticketRepository.save(ticket);});
 
             IntStream.rangeClosed(1,sectionC.getCapacity()).forEach(a -> {
-                        Seat seat_add = Seat.builder().seatNumber(a).hall(sectionA).build();
-                        Ticket ticket = Ticket.builder().seat(seat_add).session(fnafSession).build();
-                        ticketRepository.save(ticket);});//fnaf
+            Seat seat_add = Seat.builder().seatNumber(a).hall(sectionC).build();
+            Ticket ticket = Ticket.builder().seat(seat_add).session(oppenheimerSession).build();
+            ticketRepository.save(ticket);});
 
         };
     }

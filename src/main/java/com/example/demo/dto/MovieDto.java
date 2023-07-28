@@ -1,9 +1,7 @@
 package com.example.demo.dto;
 
 
-import com.example.demo.entity.enums.Genre;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

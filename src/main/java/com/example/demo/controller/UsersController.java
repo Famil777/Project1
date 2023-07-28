@@ -23,7 +23,7 @@ public class UsersController {
     private final UsersService usersService;
 
     @GetMapping
-    public List<UserDto> getALlUsers(){
+    public List<UserDto> getALlUsers() {
         return usersService.getAllUsers();
     }
 
@@ -39,14 +39,13 @@ public class UsersController {
                            @RequestParam(required = false) String surname,
                            @RequestParam(required = false) String email,
                            @RequestParam(required = false) String password) throws UserNotFound, EmailAlreadyTaken {
-        usersService.updateUser(userId,name, surname, email, password);
+        usersService.updateUser(userId, name, surname, email, password);
     }
 
     @DeleteMapping("/{user_id}")
-    public void deleteUser(@PathVariable("user_id") Long userId){
+    public void deleteUser(@PathVariable("user_id") Long userId) {
         usersService.deleteUser(userId);
     }
-
 
 
     @PostMapping(path = "/{userId}/{ticketId}")
@@ -57,7 +56,7 @@ public class UsersController {
 
     @DeleteMapping(path = "/{userId}/{ticketId}")
     public void deleteTicket(@PathVariable("userId") Long userId,
-                             @PathVariable("ticketId") Long ticketId) throws TicketNotFound, TicketAlreadyTaken, UserNotFound {
+                             @PathVariable("ticketId") Long ticketId) throws TicketNotFound, UserNotFound {
 
         usersService.deleteTicket(userId, ticketId);
 

@@ -26,7 +26,7 @@ public class TicketController {
     }
 
     @DeleteMapping(path = "/{session-id}")
-    public void deleteTicket(@PathVariable("session-id") Long sessionId){
+    public void deleteTicket(@PathVariable("session-id") Long sessionId) {
         ticketService.deleteTicket(sessionId);
     }
 

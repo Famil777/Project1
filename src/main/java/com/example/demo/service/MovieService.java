@@ -4,86 +4,25 @@ import com.example.demo.dto.MovieDto;
 import com.example.demo.entity.Movie;
 import com.example.demo.entity.enums.Genre;
 import com.example.demo.exceptions.MovieNotFound;
-import com.example.demo.mapper.MovieMapper;
-import com.example.demo.repository.MovieRepository;
-import com.example.demo.specification.MovieSpecification;
-
-import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
-
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
-public class MovieService {
+public interface MovieService {
+    List<MovieDto> getAllMovies();
 
-    private final MovieRepository movieRepository;
-    private final MovieMapper movieMapper;
+    List<MovieDto> containsName(String name);
 
+    void addMovie(Movie movie);
 
-    // getALlMovies
-    public List<MovieDto> getAllMovies() {
-        return movieRepository.findAll().stream().map(movieMapper::movieToMovieDto).toList();
-    }
+    void updateMovie(Long movieId, List<Genre> genres, String name) throws MovieNotFound;
 
-    public List<MovieDto> containsName(String name) {
+    void deleteMovie(Long movieId) throws MovieNotFound;
 
-        Specification<Movie> specifications = Specification.where(MovieSpecification.containsName(name));
-        return movieRepository.findAll(specifications).stream().map(movieMapper::movieToMovieDto).toList();
+    List<MovieDto> findByGenre(List<Genre> genres);
 
-    }
+    List<MovieDto> greaterThanRating(Double rating);
 
-    // Add Movie
-    public void addMovie(Movie movie) {
-        movieRepository.save(movie);
-    }
-
-    // updateMovie
-    @Transactional
-    public void updateMovie(Long movieId, List<Genre> genres, String name) throws MovieNotFound {
-
-        Movie movie = movieRepository.findByMovieId(movieId).orElseThrow(() -> new MovieNotFound("Movie doesn't exist"));
-
-        if (!movie.getName().equals(name) && name != null && name.length() > 0) {
-            movie.setName(name);
-        }
-        if (genres != null) {
-            movie.setGenres(genres);
-        }
-
-    }
-
-
-    //deleteMovie
-    public void deleteMovie(Long movieId) throws MovieNotFound {
-
-        Movie movie = movieRepository.findByMovieId(movieId).orElseThrow(() -> new MovieNotFound("Movie doesn't exist"));
-        movieRepository.delete(movie);
-
-    }
-
-
-    public List<MovieDto> findByGenre(List<Genre> genres) {
-        List<Integer> list = genres.stream().map(Genre::ordinal).toList();
-        Specification<Movie> specifications = Specification.where(MovieSpecification.findByGenres(list));
-        return movieRepository.findAll(specifications).stream().map(movieMapper::movieToMovieDto).toList();
-
-    }
-
-    public List<MovieDto> greaterThanRating(Double rating) {
-        Specification<Movie> specifications = Specification.where(MovieSpecification.greaterThanRating(rating));
-        return movieRepository.findAll(specifications).stream().map(movieMapper::movieToMovieDto).toList();
-    }
-
-    public List<MovieDto> findByGenreAndRating(List<Genre> genres, Double rating) {
-        List<Integer> list = genres.stream().map(Genre::ordinal).toList();
-        Specification<Movie> specifications = Specification.where(MovieSpecification.findByGenres(list)
-                                                                  .and(MovieSpecification.greaterThanRating(rating)));
-
-        return movieRepository.findAll(specifications).stream().map(movieMapper::movieToMovieDto).toList();
-    }
+    List<MovieDto> findByGenreAndRating(List<Genre> genres, Double rating);
 }
